@@ -121,9 +121,9 @@ class RpcService(object):
                 'function(request,response)\n\nSynchronous Example:\n' + \
                 '\trequest = ' + method.input_type.name + '()\n' + \
                 '\ttry:\n' + \
-                '\t#Wait 1000ms for a response\n' + \
+                '\t#Wait 100s for a response\n' + \
                 '\t\tresponse = ' + method.name + \
-                '(request, timeout=1000)\n' + \
+                '(request, timeout=100)\n' + \
                 '\texcept: RpcException\n' + \
                 '\t\t#Handle exception\n\n' + \
                 'Asynchronous Example:\n' + \
@@ -139,14 +139,14 @@ class RpcService(object):
     def call(self, rpc, request, timeout=None, callback=None):
         '''
         Save the object that has been created and return the response.
-        Will timeout after timeout ms if response has not been
+        Will timeout after timeout s if response has not been
         received.  The timeout arg is only used for asynch requests.
         If a callback has been supplied the timeout arg is not used.
         The response value will be returned for a synch request but
         nothing will be returned for an asynch request.
 
         Accepted Arguments:
-        timeout -- (Integer) ms to wait for a response before returning
+        timeout -- (Integer) s to wait for a response before returning
         '''
 
         # Create a controller for this call
@@ -192,7 +192,7 @@ class RpcService(object):
             return controller
 
         # Run with timeout
-        end = time() + (timeout / 1000)
+        end = time() + timeout
 
         # Wait for timeout or thread to exit indicating call has returned
         rpc_thread.join(timeout)
