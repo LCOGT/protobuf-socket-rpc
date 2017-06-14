@@ -146,7 +146,7 @@ class RpcService(object):
         nothing will be returned for an asynch request.
 
         Accepted Arguments:
-        timeout -- (Integer) s to wait for a response before returning
+        timeout -- Fractional seconds to wait for a response before returning
         '''
 
         # Create a controller for this call
